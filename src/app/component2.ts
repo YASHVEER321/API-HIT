@@ -4,13 +4,19 @@ import {GlobalService} from './global-service.service'
 
 @Component({
   selector: 'app2-root',
-  template:'{{response}} This Is Your Home Page <br>  Hit API <button pButton type="button"  label="Click"></button>'
+  template:`This Is Your Home Page <br>  Hit API Using ngOnInit Method<br>
+  This is API Data <br><br>& status is:&nbsp;<input type="text" *ngIf="id!=58ccd35b27cee6d07dd3e573" pInputText [(ngModel)]="status"/>
+   <br>cratedDate is:&nbsp;<input type="text" pInputText [(ngModel)]="cratedDate"/><br>
+  &nbsp;id is:&nbsp;<input type="text" pInputText [(ngModel)]="id"/>
+  `
 })
 export class AppComponent2 implements OnInit {
-  title = ' '
- 
-     userId:any;
+  title = ' ';
+  userId:any;
   response:any;
+  status:any;
+  id:any;
+  cratedDate:any
   constructor(private a:ActivatedRoute,private globalService:GlobalService){
    
   }
@@ -28,11 +34,14 @@ export class AppComponent2 implements OnInit {
   //     });
   // }
   function1(){
-    let url="https://lensclues.sia.co.in/cart/gettocartbyuserid/5886da7adbde75173bfb0eb0";
+    let url="https://lensclues.sia.co.in/cms/aboutus";
     this.globalService.GetRequest(url).subscribe(data=>{
-      console.log(data[0],"Data from Cart",data[0].json.data.cartTotal);
-      this.response=data[0].json.data.cartTotal;
-      console.log(this.response,'ravindra')
+      //console.log(data[0],"Data from Cart",data[0].json.data.cartTotal);
+      this.response="";
+      this.cratedDate=data[0].json.Data.createdAt;
+      this.status=data[0].json.Data.status;
+      this.id=data[0].json.Data._id;
+      console.log(this.response,'Yash')
     })
   }
 
